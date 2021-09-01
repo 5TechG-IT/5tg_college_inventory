@@ -1,0 +1,26 @@
+.fws,
+.fws1 {
+  width: 100%;
+  background-color: transparent;
+  padding-left: 1em;
+  min-height: 1.5em;
+}
+
+.fws {
+  cursor: pointer;
+}
+
+.fws:hover {
+  background-color: #333;
+  color: white;
+}
+
+.fwi {
+  width: 100%;
+  padding-left: 1em;
+  background-color: #333;
+  color: white;
+  border: 0;
+  border-bottom: 2px solid blue;
+  outline: none;
+}

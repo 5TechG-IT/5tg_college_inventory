@@ -1,0 +1,19 @@
+#title {
+	color: white;
+	font-weight: 600;
+}
+/* width */
+::-webkit-scrollbar {
+	width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: rgb(167, 167, 167);
+	border-radius: 10px;
+}

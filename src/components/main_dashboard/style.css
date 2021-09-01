@@ -1,0 +1,26 @@
+.main-navbar {
+	display: flex;
+	min-height: 92vh;
+	flex-direction: column;
+	justify-content: space-between;
+	background: aliceblue;
+	
+}
+#title {
+	color: white;
+	font-weight: 600;
+}
+
+.profile {
+	color: white !important;
+	background: rgb(255, 35, 108) !important;
+	width: 60px !important;
+	height: 60px !important;
+	font-size: 30px !important;
+}
+
+.profile-body {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}

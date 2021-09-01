@@ -1,0 +1,32 @@
+.middle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
+  height: fit-content;
+  text-align: center;
+  box-shadow: 5px 5px 10px #0008;
+  padding: 2em;
+  box-sizing: border-box;
+  border: 2px solid #fff4;
+  border-radius: 0.5em;
+}
+
+.missing {
+  width: 50%;
+  height: auto;
+}
+
+.notfound-button {
+  width: 100%;
+  border: 0;
+  background-color: #0008;
+  padding: 1em;
+  box-sizing: border-box;
+  border-radius: 1em;
+  margin-top: 1em;
+  color: white;
+  font-size: 24px;
+  font-weight: 700;
+}

@@ -1,0 +1,79 @@
+{
+	"name": "5tg_desktop-app_inventory-manager",
+	"productName": "5tg_desktop-app_inventory-manager",
+	
+	"version": "0.1.0",
+	"private": true,
+	"homepage": "./",
+	"author": "5techg",
+	"dependencies": {
+		"@fortawesome/fontawesome-svg-core": "^1.2.29",
+		"@fortawesome/free-solid-svg-icons": "^5.13.1",
+		"@fortawesome/react-fontawesome": "^0.1.11",
+		"@material-ui/core": "^4.10.2",
+		"@material-ui/lab": "^4.0.0-alpha.56",
+		"@testing-library/jest-dom": "^4.2.4",
+		"@testing-library/react": "^9.5.0",
+		"@testing-library/user-event": "^7.2.1",
+		"axios": "^0.19.2",
+		"body-parser": "^1.19.0",
+		"bootstrap": "^4.5.0",
+		"cors": "^2.8.5",
+		"datatables.net": "^1.10.21",
+		"datatables.net-autofill-bs4": "^2.3.5",
+		"datatables.net-bs4": "^1.10.24",
+		"datatables.net-buttons-bs4": "^1.7.0",
+		"datatables.net-dt": "^1.10.24",
+		"datatables.net-responsive-bs4": "^2.2.7",
+		"datatables.net-scroller-bs4": "^2.0.3",
+		"datatables.net-searchpanes-bs4": "^1.1.1",
+		"datatables.net-select-bs4": "^1.3.3",
+		"electron-is-dev": "^1.2.0",
+		"express": "^4.17.1",
+		"install": "^0.13.0",
+		"jquery": "^3.6.0",
+		"jszip": "^3.6.0",
+		"moment": "^2.27.0",
+		"mysql": "^2.18.1",
+		"npm": "^7.9.0",
+		"pdfmake": "^0.1.71",
+		"react": "^16.13.1",
+		"react-bootstrap": "^1.0.1",
+		"react-dom": "^16.13.1",
+		"react-router-dom": "^5.2.0",
+		"react-scripts": "3.4.1",
+		"react-to-print": "^2.9.0",
+		"react-toastify": "^6.0.6",
+		"sweetalert2": "^9.15.2"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"electron-dev-lin": "concurrently \"node src/api/mySqlApi.js\" \"wait-on http://localhost:5000 && BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+		"electron-dev-win": "concurrently \"npm start\" \"wait-on http://localhost:3000 && electron .\"",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject"
+	},
+	"eslintConfig": {
+		"extends": "react-app"
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"concurrently": "^5.2.0",
+		"electron": "^9.0.5",
+		"electron-builder": "^22.7.0",
+		"electron-packager": "^15.0.0",
+		"wait-on": "^5.0.1"
+	}
+}
