@@ -7,7 +7,7 @@ import moment from "moment";
 import "react-toastify/dist/ReactToastify.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 
 //Bootstrap and jQuery libraries
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -103,6 +103,10 @@ export class expenses extends Component {
         });
     }
 
+    refreshLedger() {
+        window.location.reload(false);
+    }
+
     render() {
         return (
             <div
@@ -152,6 +156,17 @@ export class expenses extends Component {
                                     type="submit"
                                 >
                                     Add expense
+                                </Button>
+                                <Button
+                                    color="secondary"
+                                    variant="contained"
+                                    className="ml-3 p-1"
+                                    onClick={this.refreshLedger}
+                                >
+                                    <FontAwesomeIcon
+                                        icon={faSyncAlt}
+                                        size="2x"
+                                    />
                                 </Button>
                             </div>
                         </form>

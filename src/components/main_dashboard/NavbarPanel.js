@@ -28,13 +28,12 @@ function NavbarPanel(props) {
                 <Card border="primary" className="mb-2">
                     <Card.Body className="m-0 p-1">
                         <h6>Menu</h6>
-                        <Link to="/">
+                        <Link to="/mainDashboard">
                             <Button
                                 variant="primary"
                                 size="sm"
                                 block
                                 className="mb-2"
-                                disabled
                             >
                                 Order Manager
                             </Button>
@@ -67,7 +66,6 @@ function NavbarPanel(props) {
                                 size="sm"
                                 block
                                 className="mb-2"
-                                disabled
                             >
                                 Expense Manager
                             </Button>

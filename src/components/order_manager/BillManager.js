@@ -272,7 +272,7 @@ export default class BillManager extends Component {
     };
 
     handleClear = () => {
-        return null;
+        window.location.reload(false);
     };
 
     insertBillList = () => {
@@ -634,20 +634,13 @@ export default class BillManager extends Component {
                             <Card className="mt-2 p-0">
                                 <Card.Header>
                                     <Card.Title className="text-center pb-0 mb-0">
-                                        <b>
-                                            Akshay Cement Vit & Cement Articles
-                                        </b>
+                                        <b>MINISHO</b>
                                     </Card.Title>
                                     <hr />
-                                    <p className="text-center pb-0 mb-0">
-                                        Opp. of Sugar factory, Gate no. 2<br />
-                                        Kavathe Mahankal, Dist: Sangli, PIN:
-                                        416405
-                                    </p>
                                     <p className="text-center">
                                         Customer Care No. 7028828831, 06, 07
                                         <hr />
-                                        email ID: ashitoshpatil0777@gmail.com
+                                        email ID: customer.care@minisho.com
                                     </p>
                                     <hr />
 
@@ -911,10 +904,7 @@ export default class BillManager extends Component {
                                                 }}
                                             >
                                                 Company Name :{" "}
-                                                <b>
-                                                    Akshay Cement Vit and cement
-                                                    articles
-                                                </b>
+                                                <b>Minisho Pvt. Ltd.</b>
                                             </h6>
 
                                             <h6
@@ -923,7 +913,7 @@ export default class BillManager extends Component {
                                                 }}
                                             >
                                                 GSTIN No.:{" "}
-                                                <b>27BYLPP3515R1ZM</b>
+                                                <b>27BASPP3515R1ZM</b>
                                             </h6>
 
                                             <h6
@@ -948,7 +938,7 @@ export default class BillManager extends Component {
                                                     textTransform: "capitalize",
                                                 }}
                                             >
-                                                Bank A/c: <b>365605006422</b>
+                                                Bank A/c: <b>365605126422</b>
                                             </h6>
                                             <h6
                                                 style={{
@@ -962,8 +952,7 @@ export default class BillManager extends Component {
                                                     textTransform: "capitalize",
                                                 }}
                                             >
-                                                Branch Name :{" "}
-                                                <b>Kavathe Mahankal</b>
+                                                Branch Name : <b>Sangli</b>
                                             </h6>
                                         </Col>
                                     </Row>
@@ -980,50 +969,53 @@ export default class BillManager extends Component {
                         </Col>
                     </Row>
                 </div>
-                <ReactToPrint
-                    trigger={() => (
-                        <Button
-                            className="mt-2 mr-1"
-                            color="primary"
-                            variant="contained"
-                            style={{ float: "right" }}
-                            disabled={
-                                (this.state.partyName ||
-                                    this.state.newPartyName) &&
-                                this.state.address
-                                    ? false
-                                    : true
-                            }
-                        >
-                            Save & Print
-                        </Button>
-                    )}
-                />
-                <Button
-                    className="mt-2 mr-1"
-                    color="secondary"
-                    variant="contained"
-                    style={{ float: "right" }}
-                    // type="submit"
-                    onClick={this.handleSave}
-                    disabled={
-                        (this.state.partyName || this.state.newPartyName) &&
-                        this.state.address
-                            ? false
-                            : true
-                    }
-                >
-                    Save bill
-                </Button>
-                <Button
-                    className="mt-2 mr-1"
-                    color="secondary"
-                    variant="contained"
-                    style={{ float: "right" }}
-                    onClick={this.handleClear}
-                >
-                    clear
-                </Button>
+                <div className="mx-5 px-5">
+                    <ReactToPrint
+                        trigger={() => (
+                            <Button
+                                className="mt-2 mr-1"
+                                color="primary"
+                                variant="contained"
+                                style={{ float: "right" }}
+                                disabled={
+                                    (this.state.partyName ||
+                                        this.state.newPartyName) &&
+                                    this.state.address
+                                        ? false
+                                        : true
+                                }
+                                hidden
+                            >
+                                Save & Print
+                            </Button>
+                        )}
+                    />
+                    <Button
+                        className="mt-2 mr-1"
+                        color="secondary"
+                        variant="contained"
+                        style={{ float: "right" }}
+                        // type="submit"
+                        onClick={this.handleSave}
+                        disabled={
+                            (this.state.partyName || this.state.newPartyName) &&
+                            this.state.address
+                                ? false
+                                : true
+                        }
+                    >
+                        Save bill
+                    </Button>
+                    <Button
+                        className="mt-2 mr-1"
+                        color="secondary"
+                        variant="contained"
+                        style={{ float: "right" }}
+                        onClick={this.handleClear}
+                    >
+                        clear
+                    </Button>
+                </div>
             </form>
         );
     }
