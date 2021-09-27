@@ -913,7 +913,7 @@ export default class BillManager extends Component {
                                                 }}
                                             >
                                                 GSTIN No.:{" "}
-                                                <b>27BASPP3515R1ZM</b>
+                                                <b>27BASWSES515R1ZM</b>
                                             </h6>
 
                                             <h6
@@ -938,7 +938,7 @@ export default class BillManager extends Component {
                                                     textTransform: "capitalize",
                                                 }}
                                             >
-                                                Bank A/c: <b>365605126422</b>
+                                                Bank A/c: <b>363405126422</b>
                                             </h6>
                                             <h6
                                                 style={{

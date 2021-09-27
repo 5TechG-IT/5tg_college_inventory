@@ -16,8 +16,6 @@ import ExpenseManager from "../expense_manager/ExpenseManager";
 import StockManager from "../stock_manager/StockManager";
 import OrderManager from "../order_manager/orderManager";
 import LedgerManager from "../ledger_manager/LedgerManager";
-import VehicleManager from "../vehicle_manager/VehicleManager";
-import VehicleLedgerManager from "../vehicle_ledger_manager/VehicleLedgerManager";
 
 function Main(props) {
     const [authenticated, setAuthenticated] = useState(props.location.state);
@@ -71,16 +69,6 @@ function Main(props) {
                                     path="/ledgerManager/:partyId"
                                     exact
                                     component={LedgerManager}
-                                />
-                                <Route
-                                    path="/vehicleManager/"
-                                    exact
-                                    component={VehicleManager}
-                                />
-                                <Route
-                                    path="/vehicleLedgerManager/:vehicleId"
-                                    exact
-                                    component={VehicleLedgerManager}
                                 />
                             </Switch>
                         </Col>
