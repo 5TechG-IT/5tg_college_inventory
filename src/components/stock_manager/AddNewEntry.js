@@ -238,7 +238,7 @@ export class AddNewEntry extends Component {
                             <FontAwesomeIcon icon={faPlusCircle} size="2x" />
                         </Button>
                         <Button
-                            color="secondary"
+                            color="primary"
                             variant="contained"
                             className="mb-3 ml-2"
                             onClick={this.props.refreshLedger}

@@ -197,7 +197,7 @@ export default class WholesellerPartyManager extends Component {
                     </td>
                     <td align="center">
                         <Button
-                            color="secondary"
+                            color="primary"
                             variant="contained"
                             onClick={(e) => {
                                 this.setState({
@@ -382,7 +382,7 @@ export default class WholesellerPartyManager extends Component {
                         >
                             <Button
                                 className="mt-1 mr-1 mb-3"
-                                color="secondary"
+                                color="primary"
                                 variant="contained"
                                 onClick={(e) => {
                                     this.setState({ showAddModal: true });

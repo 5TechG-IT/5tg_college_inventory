@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Row, Col, Navbar } from "react-bootstrap";
 import {
     Switch,
-    BrowserRouter as Router,
+    HashRouter as Router,
     Route,
     Redirect,
 } from "react-router-dom";
@@ -13,7 +13,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import NavbarPanel from "./NavbarPanel";
 import PartyManager from "../party_manager/PartyManager";
 import ExpenseManager from "../expense_manager/ExpenseManager";
-import StockManager from "../stock_manager/StockManager";
+import ProductManager from "../product_manager/ProductManager";
 import OrderManager from "../order_manager/orderManager";
 import LedgerManager from "../ledger_manager/LedgerManager";
 
@@ -56,9 +56,9 @@ function Main(props) {
                                 />
 
                                 <Route
-                                    path="/stockManager"
+                                    path="/productManager"
                                     exact
-                                    component={StockManager}
+                                    component={ProductManager}
                                 />
                                 <Route
                                     path="/expenseManager"

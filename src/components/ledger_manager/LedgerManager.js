@@ -192,7 +192,7 @@ class LedgerManager extends Component {
                     <td>{last_modified}</td>
                     <td align="center">
                         <Button
-                            color="secondary"
+                            color="primary"
                             variant="contained"
                             onClick={(e) => {
                                 this.setState({

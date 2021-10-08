@@ -222,33 +222,6 @@ export default class StockManager extends Component {
         });
     }
 
-    renderProductCount = () => {
-        if (!this.state.productCount || this.state.productCount.length < 1)
-            return null;
-
-        return this.state.products.map((product, index) => {
-            console.log(this.state.productCount[0]);
-            console.log(this.state.productCount[0]["quantity"]);
-            return (
-                <Button
-                    color={
-                        this.state.productCount[index]["quantity"] < 20
-                            ? "secondary"
-                            : "primary"
-                    }
-                    variant="outlined"
-                    className="float-left mb-2 mr-1"
-                    size="sm"
-                >
-                    <h6>
-                        {product}:&nbsp; &nbsp;
-                        <b>{this.state.productCount[index]["quantity"]}</b>
-                    </h6>
-                </Button>
-            );
-        });
-    };
-
     renderLedgerData = () => {
         if (this.state.LedgerData == null) {
             return null;
@@ -280,7 +253,7 @@ export default class StockManager extends Component {
                     <td>{last_modified}</td>
                     <td align="center">
                         <Button
-                            color="secondary"
+                            color="primary"
                             variant="contained"
                             className="mr-2"
                             onClick={(e) => {
@@ -620,14 +593,6 @@ export default class StockManager extends Component {
         return (
             <div className="container-fluid border m-0 p-1">
                 {this.renderUpdateProductModal()}
-                <div
-                    style={{
-                        height: "190px",
-                        overflow: "scroll",
-                    }}
-                >
-                    <Row>{this.renderProductCount()}</Row>
-                </div>
 
                 <br />
                 <div

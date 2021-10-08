@@ -790,7 +790,7 @@ export default class BillManager extends Component {
                                                                 >
                                                                     <Button
                                                                         variant="contained"
-                                                                        color="secondary"
+                                                                        color="primary"
                                                                         onClick={() =>
                                                                             this.deleteItem(
                                                                                 index
@@ -992,7 +992,7 @@ export default class BillManager extends Component {
                     />
                     <Button
                         className="mt-2 mr-1"
-                        color="secondary"
+                        color="primary"
                         variant="contained"
                         style={{ float: "right" }}
                         // type="submit"
@@ -1008,7 +1008,7 @@ export default class BillManager extends Component {
                     </Button>
                     <Button
                         className="mt-2 mr-1"
-                        color="secondary"
+                        color="primary"
                         variant="contained"
                         style={{ float: "right" }}
                         onClick={this.handleClear}

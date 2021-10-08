@@ -39,14 +39,14 @@ function NavbarPanel(props) {
                             </Button>
                         </Link>
 
-                        <Link to="/stockManager">
+                        <Link to="/productManager">
                             <Button
                                 variant="primary"
                                 size="sm"
                                 block
                                 className="mb-2"
                             >
-                                Stock Manager
+                                Product Manager
                             </Button>
                         </Link>
 

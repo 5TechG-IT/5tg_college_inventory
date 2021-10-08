@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/D:/5tg_college_inventory/build/static/css/main.a14a7caa.chunk.css",
+    "main.js": "/D:/5tg_college_inventory/build/static/js/main.0f2aa82f.chunk.js",
+    "main.js.map": "/D:/5tg_college_inventory/build/static/js/main.0f2aa82f.chunk.js.map",
+    "runtime-main.js": "/D:/5tg_college_inventory/build/static/js/runtime-main.771d4655.js",
+    "runtime-main.js.map": "/D:/5tg_college_inventory/build/static/js/runtime-main.771d4655.js.map",
+    "static/css/2.3e08c3e1.chunk.css": "/D:/5tg_college_inventory/build/static/css/2.3e08c3e1.chunk.css",
+    "static/js/2.69ece395.chunk.js": "/D:/5tg_college_inventory/build/static/js/2.69ece395.chunk.js",
+    "static/js/2.69ece395.chunk.js.map": "/D:/5tg_college_inventory/build/static/js/2.69ece395.chunk.js.map",
+    "index.html": "/D:/5tg_college_inventory/build/index.html",
+    "precache-manifest.16e65d1846a9edc7cef597671f56fa0e.js": "/D:/5tg_college_inventory/build/precache-manifest.16e65d1846a9edc7cef597671f56fa0e.js",
+    "service-worker.js": "/D:/5tg_college_inventory/build/service-worker.js",
+    "static/css/2.3e08c3e1.chunk.css.map": "/D:/5tg_college_inventory/build/static/css/2.3e08c3e1.chunk.css.map",
+    "static/css/main.a14a7caa.chunk.css.map": "/D:/5tg_college_inventory/build/static/css/main.a14a7caa.chunk.css.map",
+    "static/js/2.69ece395.chunk.js.LICENSE.txt": "/D:/5tg_college_inventory/build/static/js/2.69ece395.chunk.js.LICENSE.txt",
+    "static/media/qrcode.jpeg": "/D:/5tg_college_inventory/build/static/media/qrcode.75f40b32.jpeg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.771d4655.js",
+    "static/css/2.3e08c3e1.chunk.css",
+    "static/js/2.69ece395.chunk.js",
+    "static/css/main.a14a7caa.chunk.css",
+    "static/js/main.0f2aa82f.chunk.js"
+  ]
+}

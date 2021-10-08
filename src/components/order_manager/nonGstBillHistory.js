@@ -208,7 +208,7 @@ export default class NonGstBillHistory extends Component {
                         </Button>
                         <Button
                             className="mt-2"
-                            color="secondary"
+                            color="primary"
                             variant="contained"
                             onClick={() => {
                                 this.setState({
