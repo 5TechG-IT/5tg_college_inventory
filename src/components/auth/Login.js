@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { toast } from "react-toastify";
-
+import logo from "./../../images/Screenshot (49).png";
 import "./Login.css";
 
 const Login = () => {
@@ -21,11 +21,19 @@ const Login = () => {
 
     return (
         <div className="my_card">
-            <div className="Heading">MINISHO | Login</div>
+            <div className="Heading">
+                <img
+                    src={logo}
+                    alt="logo"
+                    className="img-fluid"
+                    width={350}
+                    height={180}
+                />
+            </div>
             <div className="card_1">
                 <div>
                     <div class="Wrapper">
-                        <p className="my_p">Sign in to start your session</p>
+                        <p className="my_p"> MINISHO | Login</p>
                         <label for="inputEmail4" class="form-label"></label>
                         <input
                             type="text"
