@@ -212,7 +212,7 @@ export class expenses extends Component {
                                             <td>₹ {expense.amount}</td>
                                             <td>
                                                 {moment(expense.date).format(
-                                                    "D/M/YYYY h:mm A"
+                                                    "D/M/YYYY"
                                                 )}
                                             </td>
                                             <td align="center">

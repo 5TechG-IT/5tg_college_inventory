@@ -209,7 +209,7 @@ export default class ProductManager extends Component {
         return products.map((record) => {
             // extract date only
             last_modified = moment(record["last_modified"]).format(
-                "DD / MM / YYYY HH:MM"
+                "DD/MM/YYYY"
             );
 
             return (

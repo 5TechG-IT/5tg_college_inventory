@@ -48,6 +48,7 @@ export default class BillManager extends Component {
             particularValue: null,
             productId: null,
             particular: null,
+            maxQuantity: 1,
             quantity: 1,
             rate: 0,
             amount: 0,
@@ -126,7 +127,7 @@ export default class BillManager extends Component {
         let res = this.state.productList.find((record) => {
             if (record.name === this.state.particular) return record;
         });
-        this.setState({ productId: res.id });
+        this.setState({ productId: res.id, maxQuantity: res.quantity });
         res
             ? this.setState({ rate: res.unitPrice })
             : this.setState({ rate: 0 });
@@ -593,9 +594,14 @@ export default class BillManager extends Component {
                             variant="outlined"
                             className="mr-2 mt-1"
                             value={this.state.quantity}
-                            onChange={(e) =>
-                                this.setState({ quantity: e.target.value })
-                            }
+                            max={`${this.state.maxQuantity}`}
+                            onChange={(e) => {
+                                if (e.target.value <= this.state.maxQuantity) {
+                                    this.setState({ quantity: e.target.value });
+                                } else {
+                                    this.setState({ quantity: 0 });
+                                }
+                            }}
                             required="true"
                             size="small"
                             type="number"
