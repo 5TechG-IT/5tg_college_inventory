@@ -347,7 +347,7 @@ export default class BillManager extends Component {
         ${this.state.adjustment}, 
         ${this.state.advance},
         ${this.state.grandTotal - this.state.advance}, 
-        "${newDate}", 
+        "${this.state.date}", 
         1)`;
         } else {
             query = `INSERT INTO nonGstBill (partyId, aadharCard, total, adjustment, paid, balance, routeName, date, status) values("
@@ -358,7 +358,7 @@ export default class BillManager extends Component {
         ${this.state.advance}, 
         ${this.state.grandTotal - this.state.advance},
         '${this.state.routeName}',
-        "${newDate}", 
+        "${this.state.date}", 
         1)`;
         }
 
@@ -538,6 +538,24 @@ export default class BillManager extends Component {
                     // required="true"
                     size="small"
                     type="number"
+                />
+                <TextField
+                    id="outlined-basic"
+                    format="YYYY-MM-DD"
+                    onChange={(e) =>
+                        this.setState({
+                            date: e.target.value,
+                        })
+                    }
+                    size="small"
+                    style={{ width: "200px" }}
+                    type="date"
+                    value={this.state.date}
+                    // options={products != null ? products : []}
+                    views="                     "
+                    className="inputField  mx-2"
+                    name="Date"
+                    variant="outlined"
                 />
 
                 {/* End of Input Party Details */}
@@ -727,9 +745,9 @@ export default class BillManager extends Component {
                                             >
                                                 Date:{" "}
                                                 <b>
-                                                    {moment(new Date()).format(
-                                                        "DD/MM/YYYY"
-                                                    )}
+                                                    {moment(
+                                                        this.state.date
+                                                    ).format("DD/MM/YYYY")}
                                                 </b>
                                             </h6>
                                         </Col>
