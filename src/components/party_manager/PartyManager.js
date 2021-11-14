@@ -77,7 +77,7 @@ class PartyManager extends Component {
 
     fetchPartiesData() {
         let url = API_URL;
-        const query = `SELECT * FROM partyView WHERE status=1;`;
+        const query = `SELECT * FROM partyView WHERE status=1`;
         let data = { crossDomain: true, crossOrigin: true, query: query };
         axios
             .post(url, data)

@@ -19,15 +19,11 @@ import {
     Button,
     Paper,
     TextField,
-    FormControl,
-    InputLabel,
-    Select,
-    MenuItem,
 } from "@material-ui/core";
 import { Row, Col, Button as Btn1, Modal, Badge } from "react-bootstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 
 // Toastify imports
@@ -44,17 +40,17 @@ export default class ProductManager extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            partyId: 0,
-            showAddModal: false,
             showProudctUpdateModal: false,
-            activeProduct: null,
+            activeProductId: null,
+            activeName: null,
+            activeUnitPrice: null,
             activeQuantity: null,
             products: null,
         };
     }
 
     fetchProducts = () => {
-        const query = `SELECT * FROM products`;
+        const query = `SELECT * FROM products where status=1`;
         let data = { crossDomain: true, crossOrigin: true, query: query };
         axios
             .post(API_URL, data)
@@ -67,8 +63,23 @@ export default class ProductManager extends Component {
             });
     };
 
-    deleteRecord(id) {
-        let data = { crossDomain: true, crossOrigin: true, query: null };
+    handleUpdateSubmit(e) {
+        const query = `UPDATE products SET name = '${this.state.activeName}', unitPrice = ${this.state.activeUnitPrice}, quantity=${this.state.activeQuantity}  WHERE id = ${this.state.activeProductId};`;
+        let data = { crossDomain: true, crossOrigin: true, query: query };
+        axios
+            .post(API_URL, data)
+            .then((res) => {
+                console.log("update status: ", res.data);
+                toast.success("Record Updated successfully");
+            })
+            .catch((err) => {
+                console.log("record update error: ", err);
+            });
+    }
+
+    deleteProduct(id) {
+        const query = `UPDATE products SET status = 0  WHERE id = ${id};`;
+        let data = { crossDomain: true, crossOrigin: true, query: query };
         axios
             .post(API_URL, data)
             .then((res) => {
@@ -95,6 +106,98 @@ export default class ProductManager extends Component {
         });
     }
 
+    renderUpdateModal = () => {
+        return (
+            <Modal
+                show={this.state.showProudctUpdateModal}
+                onHide={(e) => this.setState({ showProudctUpdateModal: false })}
+                size="md"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        Update Product
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form noValidate autoComplete="off">
+                        <div className="mt-3">
+                            <Row>
+                                <Col xs={12}>
+                                    <TextField
+                                        id="pending"
+                                        label="Name"
+                                        variant="outlined"
+                                        className="m-2"
+                                        size="small"
+                                        defaultValue={this.state.activeName}
+                                        value={this.state.activeName}
+                                        onChange={(e) =>
+                                            this.setState({
+                                                activePaid: e.target.value,
+                                            })
+                                        }
+                                    />
+                                </Col>
+                                <Col xs={6}>
+                                    <TextField
+                                        id="unitPrice"
+                                        label="Unit Price"
+                                        variant="outlined"
+                                        type="number"
+                                        defaultValue={
+                                            this.state.activeUnitPrice
+                                        }
+                                        className="m-2"
+                                        size="small"
+                                        onChange={(e) =>
+                                            this.setState({
+                                                activeUnitPrice: e.target.value,
+                                            })
+                                        }
+                                    />
+                                </Col>
+                                <Col xs={6}>
+                                    <TextField
+                                        id="quantity"
+                                        label="Quantity"
+                                        variant="outlined"
+                                        type="number"
+                                        defaultValue={this.state.activeQuantity}
+                                        className="m-2"
+                                        size="small"
+                                        onChange={(e) =>
+                                            this.setState({
+                                                activeQuantity: e.target.value,
+                                            })
+                                        }
+                                    />
+                                </Col>
+                            </Row>
+                        </div>
+
+                        <div className="mt-2 mr-1">
+                            <Button
+                                style={{ float: "right" }}
+                                onClick={(e) => {
+                                    this.setState({
+                                        showProudctUpdateModal: false,
+                                    });
+                                    this.handleUpdateSubmit(e);
+                                }}
+                                variant="contained"
+                                color="primary"
+                            >
+                                Update
+                            </Button>
+                        </div>
+                    </form>
+                </Modal.Body>
+            </Modal>
+        );
+    };
+
     renderProductData = () => {
         if (this.state.products == null) {
             return null;
@@ -118,16 +221,32 @@ export default class ProductManager extends Component {
                         </Badge>{" "}
                     </td>
                     <td>{record["name"]}</td>
+                    <td>{record["unitPrice"]}</td>
                     <td>{record["quantity"]}</td>
 
                     <td>{last_modified}</td>
                     <td align="center">
+                        <Button
+                            color="primary"
+                            variant="contained"
+                            onClick={(e) => {
+                                this.setState({
+                                    activeProductId: record.id,
+                                    activeName: record.name,
+                                    activeUnitPrice: record.unitPrice,
+                                    activeQuantity: record.quantity,
+                                    showProudctUpdateModal: true,
+                                });
+                            }}
+                        >
+                            <FontAwesomeIcon icon={faEdit} />
+                        </Button>
                         {/* delete record */}
                         <Button
                             variant="contained"
                             onClick={(e) => {
                                 if (window.confirm("Delete the item?")) {
-                                    this.deleteRecord(record.id);
+                                    this.deleteProduct(record.id);
                                 }
                             }}
                         >
@@ -142,6 +261,7 @@ export default class ProductManager extends Component {
     render() {
         return (
             <div className="container-fluid border m-0 p-1">
+                {this.renderUpdateModal()}
                 <br />
                 <div
                     className="btn-group mb-3"
@@ -166,6 +286,7 @@ export default class ProductManager extends Component {
                                     <tr>
                                         <th align="center">ID</th>
                                         <th align="center">Name</th>
+                                        <th>Unit Price</th>
                                         <th>quantity</th>
                                         <th>last modified</th>
                                         <th align="center">Options</th>

@@ -14,6 +14,7 @@ import NavbarPanel from "./NavbarPanel";
 import PartyManager from "../party_manager/PartyManager";
 import ExpenseManager from "../expense_manager/ExpenseManager";
 import ProductManager from "../product_manager/ProductManager";
+import StockManager from "../stock_manager/StockManager";
 import OrderManager from "../order_manager/orderManager";
 import LedgerManager from "../ledger_manager/LedgerManager";
 
@@ -59,6 +60,11 @@ function Main(props) {
                                     path="/productManager"
                                     exact
                                     component={ProductManager}
+                                />
+                                <Route
+                                    path="/stockManager"
+                                    exact
+                                    component={StockManager}
                                 />
                                 <Route
                                     path="/expenseManager"

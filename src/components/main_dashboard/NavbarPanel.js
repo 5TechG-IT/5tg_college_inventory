@@ -49,6 +49,16 @@ function NavbarPanel(props) {
                                 Product Manager
                             </Button>
                         </Link>
+                        <Link to="/stockManager">
+                            <Button
+                                variant="primary"
+                                size="sm"
+                                block
+                                className="mb-2"    
+                            >
+                                Stock Manager
+                            </Button>
+                        </Link>
 
                         <Link to="/partyManager">
                             <Button

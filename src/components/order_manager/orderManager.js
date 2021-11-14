@@ -29,6 +29,7 @@ import moment from "moment";
 import BillManager from "./BillManager";
 import GstBillHistory from "./gstBillHistory";
 import NonGstBillHistory from "./nonGstBillHistory";
+import MonthlySales from "./monthlySales";
 
 function OrderManager() {
     const [value, setValue] = React.useState("1");
@@ -52,6 +53,7 @@ function OrderManager() {
                     <Tab label="New Bill" value="1" />
                     <Tab label="Bill (GST) History" value="2" />
                     <Tab label="Bill (non GST) History" value="3" />
+                    <Tab label="Monthly Sales" value="4" />
                 </TabList>
             </AppBar>
             <TabPanel
@@ -74,6 +76,13 @@ function OrderManager() {
                 style={{ padding: "15px 18px 40px 10px" }}
             >
                 <NonGstBillHistory />
+            </TabPanel>
+            <TabPanel
+                value="4"
+                className="container-fluid"
+                style={{ padding: "15px 18px 40px 10px" }}
+            >
+                <MonthlySales />
             </TabPanel>
 
             <ToastContainer

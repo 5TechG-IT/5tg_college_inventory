@@ -46,8 +46,9 @@ export default class BillManager extends Component {
             date: moment(new Date()).format("YYYY-MM-DD"),
 
             particularValue: null,
+            productId: null,
             particular: null,
-            quantity: 0,
+            quantity: 1,
             rate: 0,
             amount: 0,
 
@@ -71,30 +72,7 @@ export default class BillManager extends Component {
             latestInsertId: 0,
 
             productList: [],
-
-            routeOptions: [],
         };
-    }
-
-    fetchRouteOptions() {
-        let url = API_URL;
-
-        let query = "SELECT name from routes;";
-        let data = {
-            crossDomain: true,
-            crossOrigin: true,
-            query: query,
-        };
-        axios
-            .post(url, data)
-            .then((res) => {
-                console.log("route options data : ", res.data);
-                const opts = res.data.map((record) => record.name);
-                this.setState({ routeOptions: opts });
-            })
-            .catch((err) => {
-                console.log("route options error : ", err);
-            });
     }
 
     getIdPartyList() {
@@ -131,20 +109,27 @@ export default class BillManager extends Component {
     };
 
     fetchProducts = () => {
-        const query = `SELECT name FROM products`;
+        const query = `SELECT * FROM products`;
         let data = { crossDomain: true, crossOrigin: true, query: query };
         axios
             .post(API_URL, data)
             .then((res) => {
-                let _res = res.data.map((item) => {
-                    return item.name;
-                });
-                this.setState({ productList: _res });
+                this.setState({ productList: res.data });
                 this.initializeDataTable();
             })
             .catch((err) => {
                 console.log("productlist data fetch error: ", err);
             });
+    };
+
+    setRate = () => {
+        let res = this.state.productList.find((record) => {
+            if (record.name === this.state.particular) return record;
+        });
+        this.setState({ productId: res.id });
+        res
+            ? this.setState({ rate: res.unitPrice })
+            : this.setState({ rate: 0 });
     };
 
     caluclateWeight = (field, value) => {
@@ -208,6 +193,7 @@ export default class BillManager extends Component {
             items = items.map((item) => {
                 if (item.particular === this.state.particular) {
                     return {
+                        productId: this.state.productId,
                         particular: this.state.particular,
                         quantity: +item.quantity + +this.state.quantity,
                         rate: +item.rate + +this.state.rate,
@@ -221,6 +207,7 @@ export default class BillManager extends Component {
             });
         } else {
             items.push({
+                productId: this.state.productId,
                 particular: this.state.particular,
                 quantity: this.state.quantity,
                 rate: this.state.rate,
@@ -275,6 +262,19 @@ export default class BillManager extends Component {
         window.location.reload(false);
     };
 
+    updateCount(productId, count) {
+        let url = API_URL;
+        const query = `update products set quantity = quantity - ${count} where id = ${productId}`;
+        let data = { crossDomain: true, crossOrigin: true, query: query };
+        axios
+            .post(url, data)
+            .then((res) => {
+                console.log("product count successfull");
+            })
+            .catch((err) => {
+                console.log("failed to update product count error: ", err);
+            });
+    }
     insertBillList = () => {
         let url = API_URL;
 
@@ -294,6 +294,7 @@ export default class BillManager extends Component {
             axios
                 .post(url, data)
                 .then((res) => {
+                    this.updateCount(item.productId, item.quantity);
                     console.log("insert billList successfull, index: ", index);
                 })
                 .catch((err) => {
@@ -396,7 +397,6 @@ export default class BillManager extends Component {
     componentDidMount() {
         this.getLatestId();
         this.getIdPartyList();
-        this.fetchRouteOptions();
         this.fetchProducts();
     }
 
@@ -555,7 +555,7 @@ export default class BillManager extends Component {
                                 options={
                                     this.state.productList != null
                                         ? this.state.productList.map(
-                                              (item) => item
+                                              (item) => item.name
                                           )
                                         : []
                                 }
@@ -576,7 +576,12 @@ export default class BillManager extends Component {
                                     // this.setState({
                                     //     partyName: value.split(",")[1],
                                     // });
-                                    this.setState({ particular: value });
+                                    if (value != null) {
+                                        this.setState(
+                                            { particular: value },
+                                            this.setRate
+                                        );
+                                    }
                                 }}
                             />
                         </FormControl>
@@ -790,7 +795,7 @@ export default class BillManager extends Component {
                                                                 >
                                                                     <Button
                                                                         variant="contained"
-                                                                        color="primary"
+                                                                        color="secondary"
                                                                         onClick={() =>
                                                                             this.deleteItem(
                                                                                 index
@@ -812,11 +817,11 @@ export default class BillManager extends Component {
                                                 {this.state.billType === 1 ? (
                                                     <>
                                                         <tr>
-                                                            <td colSpan="4">
+                                                            <td colSpan="3">
                                                                 Total amount
                                                                 before tax
                                                             </td>
-                                                            <td colSpan="2">
+                                                            <td colSpan="1">
                                                                 {
                                                                     this.state
                                                                         .total
@@ -824,10 +829,10 @@ export default class BillManager extends Component {
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td colSpan="4">
+                                                            <td colSpan="3">
                                                                 SGST 9%
                                                             </td>
-                                                            <td colSpan="2">
+                                                            <td colSpan="1">
                                                                 {
                                                                     this.state
                                                                         .sgst
@@ -835,10 +840,10 @@ export default class BillManager extends Component {
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td colSpan="4">
+                                                            <td colSpan="3">
                                                                 CGST 9%
                                                             </td>
-                                                            <td colSpan="2">
+                                                            <td colSpan="1">
                                                                 {
                                                                     this.state
                                                                         .cgst
@@ -846,10 +851,10 @@ export default class BillManager extends Component {
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td colSpan="4">
+                                                            <td colSpan="3">
                                                                 IGST 18%
                                                             </td>
-                                                            <td colSpan="2">
+                                                            <td colSpan="1">
                                                                 {
                                                                     this.state
                                                                         .igst
@@ -859,27 +864,27 @@ export default class BillManager extends Component {
                                                     </>
                                                 ) : (
                                                     <tr>
-                                                        <td colSpan="4">
+                                                        <td colSpan="3">
                                                             Total amount
                                                         </td>
-                                                        <td colSpan="2">
+                                                        <td colSpan="1">
                                                             {this.state.total}
                                                         </td>
                                                     </tr>
                                                 )}
                                                 <tr>
-                                                    <td colSpan="4">
+                                                    <td colSpan="3">
                                                         Adjustment
                                                     </td>
-                                                    <td colSpan="2">
+                                                    <td colSpan="1">
                                                         {this.state.adjustment}
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td colSpan="4">
+                                                    <td colSpan="3">
                                                         Grand Total
                                                     </td>
-                                                    <td colSpan="2">
+                                                    <td colSpan="1">
                                                         {this.state.grandTotal}
                                                     </td>
                                                 </tr>
@@ -992,7 +997,7 @@ export default class BillManager extends Component {
                     />
                     <Button
                         className="mt-2 mr-1"
-                        color="primary"
+                        color="secondary"
                         variant="contained"
                         style={{ float: "right" }}
                         // type="submit"
@@ -1008,7 +1013,7 @@ export default class BillManager extends Component {
                     </Button>
                     <Button
                         className="mt-2 mr-1"
-                        color="primary"
+                        color="secondary"
                         variant="contained"
                         style={{ float: "right" }}
                         onClick={this.handleClear}

@@ -34,10 +34,11 @@ export class expenses extends Component {
         };
     }
     getExpenseData() {
+        const query = `SELECT *  from expenses order by id desc;`;
         let data = {
             crossDomain: true,
             crossOrigin: true,
-            query: null,
+            query: query,
         };
         axios
             .post(API_URL, data)
@@ -58,11 +59,13 @@ export class expenses extends Component {
         e.preventDefault();
         const { description, amount } = state;
         const date = new Date();
-
+        const query = `INSERT INTO expenses (description,date,amount) VALUES('${description}','${moment(
+            date
+        ).format()}',${amount});`;
         let data = {
             crossDomain: true,
             crossOrigin: true,
-            query: null,
+            query: query,
         };
         axios
             .post(API_URL, data)
@@ -77,10 +80,11 @@ export class expenses extends Component {
     }
 
     deleteExpense(id) {
+        const query = `DELETE from expenses WHERE id=${id};`;
         let data = {
             crossDomain: true,
             crossOrigin: true,
-            query: null,
+            query: query,
         };
         axios
             .post(API_URL, data)
@@ -154,7 +158,7 @@ export class expenses extends Component {
                                     Add expense
                                 </Button>
                                 <Button
-                                    color="primary"
+                                    color="secondary"
                                     variant="contained"
                                     className="ml-3 p-1"
                                     onClick={this.refreshLedger}
@@ -213,7 +217,7 @@ export class expenses extends Component {
                                             </td>
                                             <td align="center">
                                                 <Button
-                                                    color="primary"
+                                                    color="secondary"
                                                     variant="contained"
                                                     className="mt-1 mb-1"
                                                     onClick={(e) => {

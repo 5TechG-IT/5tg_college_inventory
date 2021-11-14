@@ -25,20 +25,18 @@ export class AddNewEntry extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            supplier: null,
             productId: 0,
             quntity: 0,
             amount: 0,
             paid: 0,
             pending: 0,
 
-            linkedProductList: [],
             products: null,
         };
     }
 
     fetchProducts = () => {
-        const query = `SELECT name FROM products`;
+        const query = `SELECT name FROM products where status = 1`;
         let data = { crossDomain: true, crossOrigin: true, query: query };
         axios
             .post(API_URL, data)
@@ -50,26 +48,7 @@ export class AddNewEntry extends Component {
                 this.initializeDataTable();
             })
             .catch((err) => {
-                console.log("linkedStock data fetch error: ", err);
-            });
-    };
-
-    fetchLInkedProduct = () => {
-        const query = `SELECT * FROM linkedStock`;
-
-        let data = {
-            crossDomain: true,
-            crossOrigin: true,
-            query: query,
-        };
-        axios
-            .post(API_URL, data)
-            .then((res) => {
-                console.log("lp ", res.data);
-                this.setState({ linkedProductList: res.data });
-            })
-            .catch((err) => {
-                console.log(err);
+                console.log("product data fetch error: ", err);
             });
     };
 
@@ -80,9 +59,9 @@ export class AddNewEntry extends Component {
     ) {
         let query = ``;
         if (add === true) {
-            query = `UPDATE stockCount SET quantity = quantity + ${quantity} WHERE productId=${productId};`;
+            query = `UPDATE products SET quantity = quantity + ${quantity} WHERE id=${productId};`;
         } else {
-            query = `UPDATE stockCount SET quantity = quantity - ${quantity} WHERE productId=${productId};`;
+            query = `UPDATE products SET quantity = quantity - ${quantity} WHERE id=${productId};`;
         }
 
         let data = {
@@ -103,26 +82,13 @@ export class AddNewEntry extends Component {
             });
     }
 
-    updateLinkedProductCount = () => {
-        let linkedProductList = this.state.linkedProductList;
-        for (var i = 0; i < linkedProductList.length; i++) {
-            if (linkedProductList[i].stockId === this.state.productId) {
-                this.updateProductCount(
-                    linkedProductList[i].linkedStockId,
-                    linkedProductList[i].quantity * this.state.quantity,
-                    false
-                );
-            }
-        }
-    };
-
     handleAddSubmit(e) {
         e.preventDefault();
 
         // calculate pending amount
         let pending = this.state.amount - this.state.paid;
 
-        const query = `INSERT INTO stockLedger( supplier, productId, quantity, amount, paid, pending) VALUES('${this.state.supplier}', ${this.state.productId}, ${this.state.quantity}, ${this.state.amount}, ${this.state.paid}, ${pending});`;
+        const query = `INSERT INTO stockLedger(productId, quantity, amount, paid, pending) VALUES(${this.state.productId}, ${this.state.quantity}, ${this.state.amount}, ${this.state.paid}, ${pending});`;
 
         let data = {
             crossDomain: true,
@@ -133,7 +99,6 @@ export class AddNewEntry extends Component {
             .post(API_URL, data)
             .then((res) => {
                 this.updateProductCount();
-                this.updateLinkedProductCount();
                 toast.success("Product Tracking record added successfully");
             })
             .catch((err) => {
@@ -151,7 +116,6 @@ export class AddNewEntry extends Component {
 
     componentDidMount() {
         this.fetchProducts();
-        this.fetchLInkedProduct();
     }
 
     render() {
@@ -159,18 +123,6 @@ export class AddNewEntry extends Component {
             <div className="row">
                 <form autoComplete="off">
                     <div className="row ml-4 mt-4">
-                        <TextField
-                            id="supplier"
-                            label="Supplier"
-                            variant="outlined"
-                            type="text"
-                            className="mr-2"
-                            required={true}
-                            size="small"
-                            onChange={(e) =>
-                                this.setState({ supplier: e.target.value })
-                            }
-                        />
                         <FormControl
                             variant="filled"
                             className="mr-2 mb-2"
@@ -238,7 +190,7 @@ export class AddNewEntry extends Component {
                             <FontAwesomeIcon icon={faPlusCircle} size="2x" />
                         </Button>
                         <Button
-                            color="primary"
+                            color="secondary"
                             variant="contained"
                             className="mb-3 ml-2"
                             onClick={this.props.refreshLedger}

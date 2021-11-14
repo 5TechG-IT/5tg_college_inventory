@@ -26,6 +26,7 @@ export class AddNewEntry extends Component {
         super(props);
         this.state = {
             name: null,
+            unitPrice: 0,
             quntity: 0,
             amount: 0,
         };
@@ -34,10 +35,12 @@ export class AddNewEntry extends Component {
     handleAddSubmit(e) {
         e.preventDefault();
 
+        const query = `INSERT INTO products(name, unitPrice, quantity) VALUES('${this.state.name}', ${this.state.unitPrice}, ${this.state.quantity});`;
+
         let data = {
             crossDomain: true,
             crossOrigin: true,
-            query: null,
+            query: query,
         };
         axios
             .post(API_URL, data)
@@ -64,6 +67,18 @@ export class AddNewEntry extends Component {
                             size="small"
                             onChange={(e) =>
                                 this.setState({ name: e.target.value })
+                            }
+                        />
+
+                        <TextField
+                            id="unitPrice"
+                            label="Unit Price"
+                            variant="outlined"
+                            type="number"
+                            className="mr-2"
+                            size="small"
+                            onChange={(e) =>
+                                this.setState({ unitPrice: e.target.value })
                             }
                         />
 
