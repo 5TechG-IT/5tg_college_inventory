@@ -599,7 +599,7 @@ export default class BillManager extends Component {
                                 if (e.target.value <= this.state.maxQuantity) {
                                     this.setState({ quantity: e.target.value });
                                 } else {
-                                    this.setState({ quantity: 0 });
+                                    this.setState({ quantity: 1 });
                                 }
                             }}
                             required="true"
