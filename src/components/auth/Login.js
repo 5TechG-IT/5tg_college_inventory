@@ -58,13 +58,14 @@ const Login = () => {
                         />
                     </div>
                     <div class="flex my_css">
-                        <div class="">
+                        <div class="m-auto">
                             <button
                                 type="submit"
-                                class="btn btn-primary"
+                                className="btn btn-block text-white text-center"
+                                style={{ backgroundColor: "#ff4330" }}
                                 onClick={setLogin}
                             >
-                                Login
+                                LOGIN
                             </button>
                         </div>
                     </div>
