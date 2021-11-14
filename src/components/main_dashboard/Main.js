@@ -17,14 +17,17 @@ import ProductManager from "../product_manager/ProductManager";
 import StockManager from "../stock_manager/StockManager";
 import OrderManager from "../order_manager/orderManager";
 import LedgerManager from "../ledger_manager/LedgerManager";
+import Login from "./../auth/Login";
 
 function Main(props) {
-    const [authenticated, setAuthenticated] = useState(props.location.state);
+    const [isLoggedIn, setIsLoggedIn] = useState(
+        localStorage.getItem("isLoggedIn") == "true" ? true : false
+    );
 
     function logout() {
-        setAuthenticated(null);
+        setIsLoggedIn(false);
     }
-    if (authenticated || true) {
+    if (isLoggedIn) {
         //const { userName } = authenticated;
         const userName = "user1";
         return (
@@ -76,6 +79,7 @@ function Main(props) {
                                     exact
                                     component={LedgerManager}
                                 />
+                                <Route path="/login" exact component={Login} />
                             </Switch>
                         </Col>
                     </Row>
@@ -83,7 +87,7 @@ function Main(props) {
             </Router>
         );
     } else {
-        return <Redirect to="/" />;
+        return <Login />;
     }
 }
 
